@@ -1,0 +1,212 @@
+tags:
+  - name: users
+    description: users API
+  - name: rickandmorty
+    description: rickandmorty API
+  - name: character
+    description: character API
+
+paths:
+  # [GET] users
+  /users:
+    get:
+      tags:
+        - users
+      summary: Find All Users
+      responses:
+        200:
+          description: "OK"
+        500:
+          description: "Server Error"
+
+    # [POST] users
+    post:
+      tags:
+        - users
+      summary: Add User
+      parameters:
+        - name: body
+          in: body
+          description: user Data
+          required: true
+          schema:
+            $ref: "#/definitions/users"
+      responses:
+        201:
+          description: "Created"
+        400:
+          description: "Bad Request"
+        409:
+          description: "Conflict"
+        500:
+          description: "Server Error"
+
+  # [GET] users/id
+  /users/{id}:
+    get:
+      tags:
+        - users
+      summary: Find User By Id
+      parameters:
+        - name: id
+          in: path
+          description: User Id
+          required: true
+          type: string
+      responses:
+        200:
+          description: "OK"
+        409:
+          description: "Conflict"
+        500:
+          description: "Server Error"
+
+    # [PUT] users/id
+    put:
+      tags:
+        - users
+      summary: Update User By Id
+      parameters:
+        - name: id
+          in: path
+          description: user Id
+          required: true
+          type: string
+        - name: body
+          in: body
+          description: user Data
+          required: true
+          schema:
+            $ref: "#/definitions/users"
+      responses:
+        200:
+          description: "OK"
+        400:
+          description: "Bad Request"
+        409:
+          description: "Conflict"
+        500:
+          description: "Server Error"
+
+    # [DELETE] users/id
+    delete:
+      tags:
+        - users
+      summary: Delete User By Id
+      parameters:
+        - name: id
+          in: path
+          description: user Id
+          required: true
+          type: string
+      responses:
+        200:
+          description: "OK"
+        409:
+          description: "Conflict"
+        500:
+          description: "Server Error"
+
+  # [GET] rickandmorty
+  /rickandmorty:
+    get:
+      tags:
+        - rickandmorty
+      summary: Find All rickandmorty
+      responses:
+        200:
+          description: "OK"
+        500:
+          description: "Server Error"
+
+  # [GET] character/id
+  /character/{id}:
+    get:
+      tags:
+        - character
+      summary: Find All list characters
+      parameters:
+        - name: id
+          in: path
+          description: user Id
+          required: true
+          type: string
+      responses:
+        200:
+          description: "OK"
+        500:
+          description: "Server Error"
+
+  /character:
+    # [POST] character
+    post:
+      tags:
+        - character
+      summary: Post character
+      parameters:
+        - name: body
+          in: body
+          description: character Data
+          required: true
+          schema:
+            $ref: "#/definitions/characters"
+      responses:
+        200:
+          description: "OK"
+        500:
+          description: "Server Error"
+
+# definitions
+definitions:
+  users:
+    type: object
+    required:
+      - email
+      - username
+      - fullname
+    properties:
+      email:
+        type: string
+        description: user Email
+      password:
+        type: string
+        description: user Password
+      username:
+        type: string
+        description: username use to access
+      fullname:
+        type: string
+        description: user Full name
+
+  characters:
+    type: object
+    required:
+      - uid
+      - name
+      - ref
+      - image
+      - comment
+      - score
+    properties:
+      uid:
+        type: string
+        description: user id
+      image:
+        type: string
+        description: character Image
+      name:
+        type: string
+        description: character Name
+      ref:
+        type: integer
+        description: character id
+      comment:
+        type: string
+        description: character comment
+      score:
+        type: integer
+        description: character score
+
+schemes:
+  - https
+  - http
